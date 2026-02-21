@@ -1,0 +1,12 @@
+com\accenture\userservice\Exception\UserNotFoundException.class
+com\accenture\userservice\dto\DepartmentDto.class
+com\accenture\userservice\dto\UserDto.class
+com\accenture\userservice\controller\UserController.class
+com\accenture\userservice\repository\UserRepository.class
+com\accenture\userservice\service\IUserService.class
+com\accenture\userservice\dto\ResponseDto.class
+com\accenture\userservice\entity\ErrorResponse.class
+com\accenture\userservice\Exception\globalExceptionHandler.class
+com\accenture\userservice\entity\User.class
+com\accenture\userservice\service\UserServiceImpl.class
+com\accenture\userservice\UserServiceApplication.class

@@ -1,0 +1,65 @@
+# yaml
+spring:
+  application:
+    name: gateway-service
+
+  cloud:
+    gateway:
+      discovery:
+        locator:
+           enabled: false                                        # enable service discovery for default routes
+           lower-case-service-id: true
+        routes-refresh-interval: 5s
+      httpclient:
+        connect-timeout: 1000
+        response-timeout: 10s                                      # set the response timeout for the gateway's HTTP client.... think like debugger point
+
+
+server:
+  port: 9097
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: "http://localhost:9091/eureka/"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    gateway:
+      enabled: true                                   # disable the default /actuator/gateway endpoint
+
+  info:
+      env:
+        enabled: true                                   # include environment variables in the /actuator/info endpoint
+
+info:                                                    # add custom application information to the /actuator/info endpoint
+  app:
+    name: gateway-service
+    description: API Gateway for the microservices application
+    version: 1.0.0
+
+
+############### Circuit Breaker Configuration #############################
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        slidingWindowSize: 10                                   # number of calls to consider for calculating the failure rate
+        failureRateThreshold: 50                                # percentage of failed calls to trip the circuit breaker
+        permittedNumberOfCallsInHalfOpenState: 2                # number of calls allowed in half-open state before deciding to open or close the circuit
+        wait-duration-in-open-state: 10000                       # time (in milliseconds) to wait before transitioning from open to half-open state i.e 10 seconds here
+        waitDurationInOpenState: 10000
+
+
+
+# This route matches any request made after Jan 20, 2017 17:42 Mountain Time (Denver).e
+predicates:
+  - After=2017-01-20T17:42:47.789-07:00[America/Denver]
+
+
+
+
