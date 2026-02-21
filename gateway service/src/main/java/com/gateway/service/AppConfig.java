@@ -12,6 +12,9 @@ import java.time.Duration;
 @Configuration
 public class AppConfig {
 
+// we are using Spring Cloud Gateway Retry filter which is ✔ Recommended for Gateway (this is not resilience4j retry filter)
+// and we are using spring cloud circuit breaker filter and it is using properties from yaml (resilence4j ) because Spring Cloud CircuitBreaker abstraction
+//→ Backed by Resilience4j (because you added the dependency) but not retry
 
     @Bean
     public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {

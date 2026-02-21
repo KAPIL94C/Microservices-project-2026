@@ -11,8 +11,8 @@ spring:
            lower-case-service-id: true
         routes-refresh-interval: 5s
       httpclient:
-        connect-timeout: 1000
-        response-timeout: 10s                                      # set the response timeout for the gateway's HTTP client.... think like debugger point
+#        connect-timeout: 1000
+#        response-timeout: 10s                                      # set the response timeout for the gateway's HTTP client.... think like debugger point
 
 
 server:

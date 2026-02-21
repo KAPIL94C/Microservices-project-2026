@@ -5,6 +5,9 @@ import com.accenture.userservice.entity.User;
 import com.accenture.userservice.service.IUserService;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.ratelimiter.RequestNotPermitted;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
+import io.github.resilience4j.retry.annotation.Retry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -113,7 +116,9 @@ public class UserController {
      * To go in fallback method, stop the department service
      */
 
-    @CircuitBreaker(name = "userService", fallbackMethod = "fallbackGetDepartmentById")
+    @RateLimiter(name = "userService", fallbackMethod = "rateLimiterFallback")
+    @Retry(name = "userService", fallbackMethod = "fallbackGetDepartmentById")
+    @CircuitBreaker(name = "userService")
     @GetMapping("/employee/{id}")
     public ResponseEntity<ResponseDto> getUserWithDptment(@PathVariable("id") Integer userId) {
         logger.info("to get the user with department details "+userId);
@@ -135,6 +140,12 @@ public class UserController {
         responseDto.setDepartment(null);
         responseDto.setUser(null);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
+
+    public ResponseEntity<ResponseDto> rateLimiterFallback(Integer id, RequestNotPermitted ex) {
+        ResponseDto dto = new ResponseDto();
+        dto.setMessage("Too many requests. Please try again later.");
+        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body(dto);
     }
 
 

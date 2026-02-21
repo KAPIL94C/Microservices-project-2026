@@ -1,0 +1,14 @@
+
+we have four microservice
+1. User Service
+      # Global Exception Handling
+      # Circuit Breaker Pattern (Resilience4j)
+      # Retry Mechanism (Resilience4j)
+      # Rate Limiting (Resilience4j)
+2. Department Service
+3. API Gateway
+       # API Gateway Pattern (Spring Cloud Gateway) Eg. Routes, Predicates, Filters
+       # Circuit Breaker Pattern (Resilience4j + Spring Cloud Circuit Breaker)
+       # Retry Mechanism (Spring cloud Retry)
+       #
+4. Eureka Server

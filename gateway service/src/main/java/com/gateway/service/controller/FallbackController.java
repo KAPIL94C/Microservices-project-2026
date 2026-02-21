@@ -9,7 +9,6 @@ public class FallbackController {
 
     @RequestMapping("/fallback/employee")
     public Mono<String>  employeeCircuitBreakerFallback() {
-        System.out.println("retry");
         return Mono.just("Employee Service is currently unavailable. Please try again later.");
     }
 

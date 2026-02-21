@@ -35,10 +35,16 @@ public class DepartmentController {
 
     }
 
+    int counter = 0;
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getDepartmentById(@PathVariable("id") Integer departmentId) {
-
+//        counter++;
+//        if(counter <= 3){
+//
+//            System.out.println("retried "+counter);
+//            throw new RuntimeException("Service is down, retrying...");
+//        }
         Department department = departmentService.getDepartmentById(departmentId);
         return ResponseEntity.ok(department);
 
